@@ -1,6 +1,8 @@
 Couch Factory
 ============
 
+[![Build Status](https://travis-ci.org/javierg/couch_factory.png)](https://travis-ci.org/javierg/couch_factory)
+
 Implementing [factory_girl](http://github.com/thoughtbot/factory_girl) in Elixir, with support for persisting documents into a couchdb server.
 
 Sort of inspired by [factory girl elixir](https://github.com/sinetris/factory_girl_elixi), but with a different API.
