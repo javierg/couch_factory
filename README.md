@@ -64,6 +64,11 @@ end
 test "this is persisted" do
   assert {:ok, user} = Factory.create(:user)
 end
+
+test "override properties" do
+  expected = {[{"_id", "user/octavio@paz.com"}, {"name", "Octavio Paz"}, {"email", "octavio@war.com"}]}
+  assert expected == Factory.build(:user, email: "octavio@war.com")
+end
 ```
 
 ## Copyright and license
