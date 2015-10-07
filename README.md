@@ -10,7 +10,6 @@ Sort of inspired by [factory girl elixir](https://github.com/sinetris/factory_gi
 ## TODO
 
 * Document public functions
-* Travis integration
 * Add sequences
 * Add properties (because the result is a list, it should be very simple)
 * Figure it out how to actually override default configuration for couchdb
