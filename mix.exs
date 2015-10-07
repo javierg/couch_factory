@@ -28,6 +28,6 @@ defmodule CouchFactory.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    [{:couchbeam, git: "git://github.com/benoitc/couchbeam.git", branch: "v1.1.x"}]
+    [{:couchbeam, git: "git://github.com/benoitc/couchbeam.git", branch: "master"}]
   end
 end
