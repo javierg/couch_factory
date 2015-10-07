@@ -1,0 +1,13 @@
+language: elixir
+elixir:
+  - 1.1.1
+otp_release:
+  - 18.0
+bundler_args: --without development --deployment
+services:
+  - couchdb
+sudo: false
+before_script:
+  - mix deps.get --only test
+script:
+  - mix test
