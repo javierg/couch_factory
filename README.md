@@ -5,6 +5,17 @@ Implementing [factory_girl](http://github.com/thoughtbot/factory_girl) in Elixir
 
 Sort of inspired by [factory girl elixir](https://github.com/sinetris/factory_girl_elixi), but with a different API.
 
+## TODO
+
+* Document public functions
+* Travis integration
+* Add sequences
+* Add properties (because the result is a list, it should be very simple)
+* Figure it out how to actually override default configuration for couchdb
+* handle conflicts when creating documents
+* auto namespacing on document ids
+
+
 ## usage
 
 You will need `couchdb` server up and running
@@ -54,15 +65,6 @@ test "this is persisted" do
   assert {:ok, user} = Factory.create(:user)
 end
 ```
-
-## TODO
-
-* Document public functions
-* Add sequences
-* Add properties (because the result is a list, it should be very simple)
-* Figure it out how to actually override default configuration for couchdb
-* handle conflicts when creating documents
-* auto namespacing on document ids
 
 ## Copyright and license
 
