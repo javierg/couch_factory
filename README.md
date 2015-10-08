@@ -37,6 +37,19 @@ def application do
 end
 ```
 
+Add on your config/config.exs the couch_factory db config
+
+```elixir
+config :couch_factory, CouchFactory.Db,
+  host: "http://localhost:5984",
+  db: "factory_test",
+  user: "",
+  password: ""
+```
+
+You will need to create the db manually.
+But probably is  a good idea to add a config task for this...
+
 Run `mix deps.get` in your shell.
 
 
