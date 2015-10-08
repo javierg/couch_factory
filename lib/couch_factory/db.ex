@@ -11,10 +11,20 @@ defmodule CouchFactory.Db do
     Conn.save_doc(db, json_doc)
   end
 
+  def destroy(doc) do
+    json_doc = list_to_ejson(doc)
+    Conn.delete_doc(db, json_doc)
+  end
+
   def list_to_ejson(list) do
     list
     |> :couchbeam_ejson.encode
     |> :couchbeam_ejson.decode
+  end
+
+  def reset!() do
+    Conn.delete_db(db)
+    Conn.create_db(server, config[:db])
   end
 
   defp authorization? do
@@ -32,7 +42,6 @@ defmodule CouchFactory.Db do
     open_db
   end
 
-  #TODO: how can I redefine this in the consumer app?
   defp config do
     Application.get_env(:couch_factory, CouchFactory.Db)
   end
