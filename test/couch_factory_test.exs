@@ -18,6 +18,10 @@ defmodule CouchFactoryTest do
       built = Factory.build(:user, _id: "user/ricardo@fmagon.com", name: "Ricardo Flores Magón", email: "ricardo@fmagon.com")
       assert expected == built
     end
+
+    test "calling unexisting factory" do
+      assert {:error, :missing_factory} == Factory.build(:santa)
+    end
   end
 
   defmodule CreateTest do
@@ -46,6 +50,10 @@ defmodule CouchFactoryTest do
 
       assert Couch.destroy(new_user)
     end
+
+    test "trying to create unexisting factory" do
+      assert {:error, :missing_factory} == Factory.create(:santa)
+    end
   end
 
   defmodule PropertiesTest do
@@ -59,6 +67,10 @@ defmodule CouchFactoryTest do
     test "can override properties" do
       expected = %{_id: "user/foo@bar.com", name: "Another name", email: "foo@bar.com"}
       assert Factory.properties_for(:user, name: "Another name") == expected
+    end
+
+    test "properties_for missing factory" do
+      assert {:error, :missing_factory} == Factory.properties_for(:santa)
     end
   end
 
