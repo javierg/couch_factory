@@ -26,6 +26,27 @@ defp deps do
 end
 ```
 
+Or oyu can use Hex
+
+```elixir
+defp deps do
+  [
+    {:couch_factory, "0.1"}
+  ]
+end
+```
+
+Which will require you to add to your app dependencies couchbeam
+
+```elixir
+defp deps do
+  [
+    {:couchbeam, git: "git://github.com/benoitc/couchbeam.git", branch: "master"},
+    {:couch_factory, "0.1"}
+  ]
+end 
+```
+
 Update the applications list to include both projects:
 
 ```elixir
