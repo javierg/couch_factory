@@ -2,6 +2,24 @@ defmodule CouchFactory.Db do
   alias :couchbeam, as: Conn
   alias :couchbeam_doc, as: Doc
 
+  @moduledoc """
+  Set of helper functions to interact with Couchbeam.
+
+  The configration is set on `config/config.exs` and expected like:
+
+      config :couch_factory, CouchFactory.Db,
+        host: "http://localhost:5984",
+        db: "db_name",
+        user: "username",
+        password: "Apa$$w0rd"
+
+  CouchFactory will assume you have created the db and that couchdb is running.
+
+  Because Couchbeam doesn't have a Hex package, it needs to be added as a git dependency to your project.
+
+  This module just implement the required functions for factory management, and are not to meant to be used directly by your app.
+  """
+
   def reload(doc), do: value(doc, "_id") |> get
   def get(doc_id), do: Conn.open_doc(db, doc_id)
   def value(doc, key), do: Doc.get_value(key, doc)

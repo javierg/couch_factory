@@ -25,6 +25,6 @@ use Mix.Config
 config :couch_factory, CouchFactory.Db,
   host: "http://localhost:5984",
   db: "factory_test",
-  user: "",
-  password: ""
+  user: "root",
+  password: "123"
 
