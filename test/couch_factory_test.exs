@@ -18,6 +18,10 @@ defmodule CouchFactoryTest do
       built = Factory.build(:user, _id: "user/ricardo@fmagon.com", name: "Ricardo Flores Magón", email: "ricardo@fmagon.com")
       assert expected == built
     end
+
+    test "calling unexisting factory" do
+      assert {:error, :missing_factory} == Factory.build(:santa)
+    end
   end
 
   defmodule CreateTest do
@@ -45,6 +49,10 @@ defmodule CouchFactoryTest do
       assert Couch.value(new_user, "email") == Couch.value(user, "email")
 
       assert Couch.destroy(new_user)
+    end
+
+    test "trying to create unexisting factory" do
+      assert {:error, :missing_factory} == Factory.create(:santa)
     end
   end
 

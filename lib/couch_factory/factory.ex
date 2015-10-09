@@ -18,15 +18,26 @@ defmodule CouchFactory.Factory do
   defmacro __before_compile__(_env) do
     quote do
       def build(name, opts \\ []) do
-        apply(__MODULE__, name, [])
-        |> Dict.merge(opts)
-        |> CouchFactory.Worker.build
+        case apply_and_merge(name, opts) do
+          :missing -> {:error, :missing_factory}
+          doc -> CouchFactory.Worker.build(doc)
+        end
       end
 
       def create(name, opts \\ []) do
-        apply(__MODULE__, name, [])
-        |> Dict.merge(opts)
-        |> CouchFactory.Worker.create
+        case apply_and_merge(name, opts) do
+          :missing -> {:error, :missing_factory}
+          doc -> CouchFactory.Worker.create(doc)
+        end
+      end
+
+      defp apply_and_merge(name, opts) do
+        if function_exported?(__MODULE__, name, 0) do
+          apply(__MODULE__, name, [])
+          |> Dict.merge(opts)
+        else
+          :missing
+        end
       end
     end
   end
