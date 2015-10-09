@@ -68,6 +68,10 @@ defmodule CouchFactoryTest do
       expected = %{_id: "user/foo@bar.com", name: "Another name", email: "foo@bar.com"}
       assert Factory.properties_for(:user, name: "Another name") == expected
     end
+
+    test "properties_for missing factory" do
+      assert {:error, :missing_factory} == Factory.properties_for(:santa)
+    end
   end
 
 end
