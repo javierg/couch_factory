@@ -11,11 +11,8 @@ Sort of inspired by [factory girl elixir](https://github.com/sinetris/factory_gi
 
 * Document public functions
 * Add sequences
-* Add properties (because the result is a list, it should be very simple)
-* Figure it out how to actually override default configuration for couchdb
-* handle conflicts when creating documents
-* auto namespacing on document ids
-
+* Handle conflicts when creating documents
+* Auto namespacing on document ids
 
 ## usage
 
@@ -84,6 +81,25 @@ test "override properties" do
   assert expected == Factory.build(:user, email: "octavio@war.com")
 end
 ```
+
+If you need a map of properties you can use
+
+```elixir
+test "will return map of properties" do
+  expected = %{_id: "user/octavio@paz.com", name: "Octavio Paz", email: "octavio@paz.com"}
+  assert extected == Factory.properties_for(:user)
+end
+```
+
+And you can override properties
+
+```elixir
+test "will return map of properties" do
+  expected = %{_id: "user/octavio@paz.com", name: "Octavio War", email: "octavio@paz.com"}
+  assert extected == Factory.properties_for(:user, name: "Octavio War")
+end
+```
+
 
 ## Copyright and license
 

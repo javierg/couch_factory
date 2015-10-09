@@ -39,6 +39,12 @@ defmodule CouchFactory.Factory do
           :missing
         end
       end
+
+      def properties_for(name, opts \\ []) do
+        apply(__MODULE__, name, [])
+        |> Dict.merge(opts)
+        |> CouchFactory.Worker.build_properties
+      end
     end
   end
 end

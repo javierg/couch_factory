@@ -56,4 +56,18 @@ defmodule CouchFactoryTest do
     end
   end
 
+  defmodule PropertiesTest do
+    use ExUnit.Case
+
+    test "returns properties map" do
+      expected = %{_id: "user/foo@bar.com", name: "Foo Bar", email: "foo@bar.com"}
+      assert Factory.properties_for(:user) == expected
+    end
+
+    test "can override properties" do
+      expected = %{_id: "user/foo@bar.com", name: "Another name", email: "foo@bar.com"}
+      assert Factory.properties_for(:user, name: "Another name") == expected
+    end
+  end
+
 end
