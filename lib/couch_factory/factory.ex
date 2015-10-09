@@ -28,6 +28,12 @@ defmodule CouchFactory.Factory do
         |> Dict.merge(opts)
         |> CouchFactory.Worker.create
       end
+
+      def properties_for(name, opts \\ []) do
+        apply(__MODULE__, name, [])
+        |> Dict.merge(opts)
+        |> CouchFactory.Worker.build_properties
+      end
     end
   end
 end
