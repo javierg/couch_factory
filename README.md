@@ -91,7 +91,7 @@ test "will return map of properties" do
 end
 ```
 
-And you can override proeprties
+And you can override properties
 
 ```elixir
 test "will return map of properties" do
