@@ -3,7 +3,7 @@ defmodule CouchFactory.Mixfile do
 
   def project do
     [app: :couch_factory,
-     version: "0.1.0",
+     version: "0.1.1",
      elixir: "~> 1.0",
      description: description,
      package: package,
@@ -30,7 +30,11 @@ defmodule CouchFactory.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    [{:couchbeam, git: "git://github.com/benoitc/couchbeam.git", tag: "1.1.8"}]
+    [
+      {:earmark, ">= 0.0.0"},
+      {:ex_doc, "~> 0.10", only: :dev},
+      {:couchbeam, git: "git://github.com/benoitc/couchbeam.git", tag: "1.1.8"}
+    ]
   end
 
   defp description do
@@ -45,7 +49,7 @@ defmodule CouchFactory.Mixfile do
      maintainers: ["Francisco J. Guerra"],
      licenses: ["MIT License"],
      links: %{"GitHub" => "https://github.com/javierg/couch_factory",
-              "Docs" => "http://github.com/javierg/couch_factory/"}
+              "Docs" => "http://hexdocs.pm/couch_factory/0.1.0/"}
     ]
   end
 end
