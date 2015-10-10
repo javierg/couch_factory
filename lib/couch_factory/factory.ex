@@ -1,5 +1,6 @@
 defmodule CouchFactory.Factory do
-  @docmodule """
+
+  @moduledoc """
   Factory Girl like generator with doc persistence in database for ExUnit testing.
 
   Couch Factory have a dependency on Couchbeam.
@@ -32,16 +33,16 @@ defmodule CouchFactory.Factory do
     MaFactory.doc_name() # => [property_a: "value_a", property_b: "value_b", property_c: "value_c"]
   """
 
+  @doc """
+    Implements :couchbeam.save_doc/2 function but accepts a single argument,
+    which is a list of tupples `{[{"key", "value"}]}`, as cuchbeam format documents.
+  """
   defmacro __using__(_opts) do
     quote do
       alias CouchFactory.Db, as: Db
       import CouchFactory.Factory
       @before_compile CouchFactory.Factory
 
-      @doc """
-        Implements :couchbeam.save_doc/2 function but accepts a single argument,
-        which is a list of tupples `{[{"key", "value"}]}`, as cuchbeam format documents.
-      """
       def save(doc), do: Db.save(doc)
     end
   end

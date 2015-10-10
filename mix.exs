@@ -30,7 +30,11 @@ defmodule CouchFactory.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    [{:couchbeam, git: "git://github.com/benoitc/couchbeam.git", tag: "1.1.8"}]
+    [
+      {:earmark, ">= 0.0.0"},
+      {:ex_doc, "~> 0.10", only: :dev},
+      {:couchbeam, git: "git://github.com/benoitc/couchbeam.git", tag: "1.1.8"}
+    ]
   end
 
   defp description do
