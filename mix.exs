@@ -3,7 +3,7 @@ defmodule CouchFactory.Mixfile do
 
   def project do
     [app: :couch_factory,
-     version: "0.1.0",
+     version: "0.1.1",
      elixir: "~> 1.0",
      description: description,
      package: package,
@@ -49,7 +49,7 @@ defmodule CouchFactory.Mixfile do
      maintainers: ["Francisco J. Guerra"],
      licenses: ["MIT License"],
      links: %{"GitHub" => "https://github.com/javierg/couch_factory",
-              "Docs" => "http://github.com/javierg/couch_factory/"}
+              "Docs" => "http://hexdocs.pm/couch_factory/0.1.0/"}
     ]
   end
 end
