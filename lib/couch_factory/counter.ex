@@ -25,16 +25,4 @@ defmodule CouchFactory.Counter do
   def click(pid) do
     Agent.get_and_update(pid, fn(n) -> {n + 1, n + 1} end)
   end
-
-  def set(pid, value) do
-    Agent.update(pid, fn(_) -> value end)
-  end
-
-  def get(pid) do
-    Agent.get(pid, fn(n) -> n end)
-  end
-
-  def reset(pid) do
-    Agent.set(pid, 0)
-  end
 end
