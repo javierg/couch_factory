@@ -80,17 +80,21 @@ defmodule CouchFactory.Factory do
       end
 
       @doc """
-        Will trigger a counter for the given property returning the value of the function argument.
+        Will trigger a counter for the given property and return the function value
 
         ##Example
 
             factory :user,
-              _id: sequence(fn(n)-> "user/email_#{n}@me.com" end),
+              _id, sequence(fn(n)-> "user/email_\#{n}@me.com""),
               name: "A name"
 
-        On `Factory.build :user` will start a sequence like
+        Calling `Factory.build :user` once will create
 
             {[{"_id", "user/email_1@me.com"}, {"name", "A name"}]}
+
+        Calling again ``Factory.build :user` will now return
+
+            {[{"_id", "user/email_2@me.com"}, {"name", "A name"}]}
       """
       def sequence(name, fun) do
         fun.(CouchFactory.Counter.increment name)
