@@ -10,7 +10,6 @@ Sort of inspired by [factory girl elixir](https://github.com/sinetris/factory_gi
 ## TODO
 
 * Document public functions
-* Add sequences
 * Handle conflicts when creating documents
 * Auto namespacing on document ids
 
@@ -121,6 +120,21 @@ test "will return map of properties" do
 end
 ```
 
+To create sequences you do
+
+```elixir
+defmodule Factory do
+
+  factory :user,
+    name: sequence(fn(n)-> "User_#{1}" end)
+   counter: sequence
+```
+
+This will generate a factory like
+
+```elixir
+{[{"name", "User_1"}, {"counter", 1}]}
+```
 
 ## Copyright and license
 
