@@ -1,5 +1,6 @@
 defmodule CouchFactoryTest do
   defmodule BuildTest do
+    alias CouchFactory.Db, as: Couch
     use ExUnit.Case
 
     @map_user [_id: "user/foo@bar.com", name: "Foo Bar", email: "foo@bar.com"]
@@ -7,6 +8,23 @@ defmodule CouchFactoryTest do
 
     test "calling factory function returns map" do
       assert Factory.user == @map_user
+    end
+
+    test "sequence is unique per factory named" do
+      doc = Factory.build(:sequential_user_id)
+      docid = Couch.value doc, "_id"
+      email = Couch.value doc, "email"
+      counter = Couch.value doc, "counter"
+
+      doc2 = Factory.build(:sequential_user_id)
+      docid2 = Couch.value doc2, "_id"
+      email2 = Couch.value doc2, "email"
+      counter2 = Couch.value doc2, "counter"
+
+      assert docid == "user/#{email}"
+      assert docid2 == "user/#{email2}"
+      assert docid != docid2
+      assert counter < counter2
     end
 
     test "build will return expected list" do

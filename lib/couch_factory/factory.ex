@@ -1,5 +1,4 @@
 defmodule CouchFactory.Factory do
-
   @moduledoc """
   Factory Girl like generator with doc persistence in database for ExUnit testing.
 
@@ -51,9 +50,64 @@ defmodule CouchFactory.Factory do
   This will generate a function per named factory.
   """
   defmacro factory(name, map) do
+    properties = Enum.map map, &process_map/1
+
     quote do
       @doc false
-      def unquote(name)(), do: unquote(map)
+      def unquote(name)() do
+        Enum.map unquote(properties), &set_value/1
+      end
+
+      @doc """
+        Will trigger a counter for the given property.
+
+        ##Example
+
+            factory :user,
+              _id, sequence,
+              name: "A name"
+
+        Calling `Factory.build :user` once will create
+
+            {[{"_id", 1}, {"name", "A name"}]}
+
+        Calling again ``Factory.build :user` will now return
+
+            {[{"_id", 2}, {"name", "A name"}]}
+      """
+      def sequence(name, nil) do
+        CouchFactory.Counter.increment name
+      end
+
+      @doc """
+        Will trigger a counter for the given property and return the function value
+
+        ##Example
+
+            factory :user,
+              _id, sequence(fn(n)-> "user/email_\#{n}@me.com""),
+              name: "A name"
+
+        Calling `Factory.build :user` once will create
+
+            {[{"_id", "user/email_1@me.com"}, {"name", "A name"}]}
+
+        Calling again ``Factory.build :user` will now return
+
+            {[{"_id", "user/email_2@me.com"}, {"name", "A name"}]}
+      """
+      def sequence(name, fun) do
+        fun.(CouchFactory.Counter.increment name)
+      end
+
+      defp set_value({key, [function_name, meta, body]}) do
+        {fun, _} = Code.eval_string body
+        key_name = (unquote(to_string name) <> to_string(key))
+                   |> String.to_atom
+        {key, apply(__MODULE__, function_name, [key_name, fun])}
+      end
+
+      defp set_value({k, v}), do: {k, v}
     end
   end
 
@@ -154,4 +208,18 @@ defmodule CouchFactory.Factory do
       end
     end
   end
+
+  defp process_map({key, value}) do
+    {key, call_modifier(value)}
+  end
+
+  defp call_modifier({modifier, meta, nil}) do
+    [modifier, meta, nil]
+  end
+
+  defp call_modifier({modifier, meta, [fun]}) do
+    [modifier, meta, Macro.to_string(fun)]
+  end
+
+  defp call_modifier(value), do: value
 end
